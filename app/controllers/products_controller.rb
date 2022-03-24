@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :find_product, only: [:show, :edit, :update]
+
   def index
     @products = Product.all
   end
@@ -11,10 +13,10 @@ class ProductsController < ApplicationController
     @product = Product.new(set_product)
     @product.user_id = current_user.id
     if @product.save
-        format.html { redirect_to product_path(@product), notice: "Product was successfully created." }
+        redirect_to product_path(@product),
         flash[:notice] = 'Product added...'
     else
-        format.html { render :new }
+        render 'new'
     end
 
   end
@@ -26,12 +28,25 @@ class ProductsController < ApplicationController
   end
 
   def update
+    if @product.update(set_product)
+      redirect_to @product
+    else
+      render 'edit'
+    end
+  end
+
+  def list
+    @your_products = Product.all.where(user_id: current_user.id)
   end
 
   private
 
   def set_product
     params.require(:product).permit(:name, :serial_number, :price, :description)
+  end
+
+  def find_product
+    @product = Product.find(params[:id])
   end
 
 end
