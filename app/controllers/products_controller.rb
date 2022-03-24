@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(set_product)
-    #@product.user_id = current_user.id
+    @product.user_id = current_user.id
     if @product.save
         format.html { redirect_to product_path(@product), notice: "Product was successfully created." }
         flash[:notice] = 'Product added...'
