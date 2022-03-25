@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'reviews/index'
+  get 'reviews/new'
+  get 'reviews/show'
+  get 'reviews/edit'
   get 'carts/index'
   get 'cart_items/index'
   devise_for :users
