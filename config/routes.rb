@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'carts/index'
+  get 'cart_items/index'
   devise_for :users
   get 'home/index'
   root to: "home#index"
