@@ -1,7 +1,7 @@
 <div class="container">
-  <h1>E-commercio Store</h1>
-  <p>Latest Products</p>
-  <p>Available Product <%= @products.length %></p>
+  <h1>E-commercio Store_</h1>
+  <h3>Latest Products</h3>
+  <p>Available Products: <%= @products.length %></p>
 </div>
 
 <div class= "row g-4 py-5 row-cols-1 row-cols-lg-3">
@@ -12,7 +12,9 @@
    <p><%= p.description%></p>
    <p>Rs. <%= p.price%></p>
    <%= link_to 'Show', p, class:"btn btn-danger" %>
-   <%= link_to 'Add to Cart', p, class:"btn btn-light border" %>
+   <% if user_signed_in? %>
+      <%= link_to 'Add to Cart', p, class:"btn btn-light border"%>
+   <% end %>
   </div>
 </span>
 <% end %>

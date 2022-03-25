@@ -10,12 +10,17 @@
           <%= link_to "Home", products_path, class:"nav-link active" %>
         </li>
         <% if user_signed_in?%>
-
+           <li class="nav-item">
+            <%= link_to 'User Profile', edit_user_registration_path, class:"nav-link" %>
+           </li>
            <li class="nav-item">
             <%= link_to 'Add New Item', new_product_path, class:"nav-link" %>
            </li>
            <li class="nav-item">
             <%= link_to "Your Products", list_products_path, class:"nav-link" %>
+           </li>
+           <li class="nav-item">
+            <%= link_to "Cart", carts_index_path, class:"nav-link" %>
            </li>
            <li class="nav-item">
             <%= link_to 'Log Out', destroy_user_session_path, method: :delete, class:"nav-link" %>
