@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :reviews, only: [:index, :new, :edit, :update, :show, :destory]
+  resources :reviews, only: [:index, :new, :create, :edit, :update, :show, :destory]
   get 'carts/index'
   get 'cart_items/index'
   devise_for :users
