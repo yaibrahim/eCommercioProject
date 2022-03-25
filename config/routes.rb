@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  get 'reviews/index'
-  get 'reviews/new'
-  get 'reviews/show'
-  get 'reviews/edit'
+  resources :reviews, only: [:index, :new, :edit, :update, :show, :destory]
   get 'carts/index'
   get 'cart_items/index'
   devise_for :users
@@ -13,6 +10,10 @@ Rails.application.routes.draw do
     collection do
       get :list
     end
+  end
+
+  resources :products do
+    resources :reviews
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
