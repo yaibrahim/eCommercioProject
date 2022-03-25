@@ -6,5 +6,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  #Cart.user_id = current_user.id
 
 end
