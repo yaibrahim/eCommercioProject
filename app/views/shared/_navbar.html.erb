@@ -17,10 +17,16 @@
             <%= link_to 'Add New Item', new_product_path, class:"nav-link" %>
            </li>
            <li class="nav-item">
-            <%= link_to "Your Products", list_products_path, class:"nav-link" %>
+            <%= link_to "My Products", list_products_path, class:"nav-link" %>
+           </li>
+           <li class="nav-item">
+            <%= link_to "My Reviews", list_reviews_path, class:"nav-link" %>
            </li>
            <li class="nav-item">
             <%= link_to "Cart", carts_index_path, class:"nav-link" %>
+           </li>
+           <li class="nav-item">
+            <%= link_to "Orders", "", class:"nav-link" %>
            </li>
            <li class="nav-item">
             <%= link_to 'Log Out', destroy_user_session_path, method: :delete, class:"nav-link" %>

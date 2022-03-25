@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :reviews, only: [:index, :new, :create, :edit, :update, :show, :destory]
+  resources :reviews do
+    collection do
+      get :list
+    end
+  end
+
   get 'carts/index'
   get 'cart_items/index'
   devise_for :users
