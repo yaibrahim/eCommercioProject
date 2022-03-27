@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(set_product)
     @product.user_id = current_user.id
+    @product.serial_number = serial_number_generator.upcase
     if @product.save
       redirect_to product_path(@product)
       flash[:notice] = 'Product added...'
@@ -47,6 +48,20 @@ class ProductsController < ApplicationController
 
   def find_product
     @product = Product.find(params[:id])
+  end
+
+  def serial_number_generator
+    numeric = '0123456789'
+    alphabets_small = 'abcdefghijklmnopqrstuvwxyz'
+    password_items = numeric + alphabets_small
+    pass = ''
+    index = 0
+    while index < 10
+      rand_value = rand 0..password_items.length - 1
+      pass += password_items[rand_value]
+      index += 1
+    end
+    return pass
   end
 
 end
