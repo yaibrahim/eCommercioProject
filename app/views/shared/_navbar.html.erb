@@ -11,9 +11,6 @@
         </li>
         <% if user_signed_in?%>
            <li class="nav-item">
-            <%= link_to 'User Profile', edit_user_registration_path, class:"nav-link" %>
-           </li>
-           <li class="nav-item">
             <%= link_to 'Add New Item', new_product_path, class:"nav-link" %>
            </li>
            <li class="nav-item">
@@ -27,6 +24,23 @@
            </li>
            <li class="nav-item">
             <%= link_to "Orders", "", class:"nav-link" %>
+           </li>
+
+        <% else%>
+        <% end%>
+      </ul>
+      <%= form_tag( products_path, :method => :get) do %>
+      <div class= "input-group">
+       <%= search_field_tag :search, params[:search], placeholder: "Search for Product", class: "form-control me-2"%>
+       <div>
+       <%= button_tag "Search", class: "btn btn-outline-success", name: nil%>
+       </div>
+      </div>
+      <% end %>%>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <% if user_signed_in?%>
+           <li class="nav-item">
+            <%= link_to 'User Profile', edit_user_registration_path, class:"nav-link" %>
            </li>
            <li class="nav-item">
             <%= link_to 'Log Out', destroy_user_session_path, method: :delete, class:"nav-link" %>
