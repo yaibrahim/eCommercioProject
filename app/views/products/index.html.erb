@@ -9,6 +9,13 @@
 <% @products.each do |p|%>
 <span class="border">
   <div class="feature col">
+  <div class="form-group">
+   <% if p.pimage.attached?%>
+      <%= image_tag p.pimage, style: "width: 200px; display: block"%>
+   <% else%>
+      <h1>no image</h1>
+   <% end %>
+  </div>
    <h2><%= p.name%></h2>
    <p>Serial no. <%= p.serial_number%></p>
    <p><%= p.description%></p>

@@ -21,6 +21,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 gem 'devise'
 # Use Active Model has_secure_password
+gem 'thinking-sphinx', '~> 5.4'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
