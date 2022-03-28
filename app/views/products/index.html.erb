@@ -1,5 +1,6 @@
 <div class="container">
   <h1>E-commercio Store_</h1>
+  <h2>hey, <%= current_user.present? ? current_user.full_name : "Guest" %></h2>
   <h3>Latest Products</h3>
   <p>Available Products: <%= @products.length %></p>
 </div>
