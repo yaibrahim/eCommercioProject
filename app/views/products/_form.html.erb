@@ -1,4 +1,15 @@
 <%= form_with model: product do |f| %>
+  <% if product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+        <% product.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <div class="form-group">
      <% if product.pimage.attached? %>
@@ -19,7 +30,7 @@
 
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_area :description, size: "#{Product::DES_SIZE}", autofocus: true %>
+    <%= f.text_area :description, size: "#{Product::DESCRIPTION_SIZE}", autofocus: true %>
   </div>
 
   <%= f.submit %>
