@@ -20,7 +20,6 @@
             <%= link_to "My Reviews", list_reviews_path, class:"nav-link" %>
            </li>
            <li class="nav-item">
-            <%= link_to "Cart", carts_url, class:"nav-link bi bi-cart" %>
            </li>
            <li class="nav-item">
             <%= link_to "Orders", "", class:"nav-link" %>
@@ -29,7 +28,7 @@
         <% else%>
         <% end%>
       </ul>
-      <%= form_tag( products_path, :method => :get) do %>
+      <%= form_tag( '/search', :method => :get) do %>
       <div class= "input-group">
        <%= search_field_tag :search, params[:search], placeholder: "Search for Product", class: "form-control me-2"%>
        <div>
@@ -47,12 +46,13 @@
            </li>
 
         <% else%>
-           <li class="nav-item">
-           <%= link_to 'Register', new_user_registration_path, class:"nav-link" %>
-           </li>
-           <li class="nav-item">
-           <%= link_to 'Sign in', new_user_session_path, class:"nav-link" %>
-           </li>
+          <li class="nav-item">
+            <%= link_to 'Register', new_user_registration_path, class:"nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to 'Sign in', new_user_session_path, class:"nav-link" %>
+          </li>
         <% end%>
       </ul>
     </div>

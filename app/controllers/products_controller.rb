@@ -1,5 +1,8 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update]
+  before_action :set_product, only: [:show, :update]
+  before_action :edit_set_product, only: [:edit]
+
+  #include ProductsHelper
 
   def index
     @products = Product.all
@@ -10,16 +13,14 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(set_product)
-    @product.user_id = current_user.id
-    @product.serial_number = serial_number_generator.upcase
+    @product = current_user.products.new(product_params)
+
     if @product.save
       redirect_to product_path(@product)
       flash[:notice] = 'Product added...'
     else
-      render 'new'
+      render :new
     end
-
   end
 
   def edit
@@ -29,7 +30,7 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if @product.update(set_product)
+    if @product.update(product_params)
       redirect_to @product
     else
       render 'edit'
@@ -37,31 +38,21 @@ class ProductsController < ApplicationController
   end
 
   def list
-    @your_products = Product.all.where(user_id: current_user.id)
+    @your_products = current_user.products
   end
 
   private
 
-  def set_product
+  def product_params
     params.require(:product).permit(:name, :serial_number, :price, :description)
   end
 
-  def find_product
+  def set_product
     @product = Product.find(params[:id])
   end
 
-  def serial_number_generator
-    numeric = '0123456789'
-    alphabets_small = 'abcdefghijklmnopqrstuvwxyz'
-    password_items = numeric + alphabets_small
-    pass = ''
-    index = 0
-    while index < 10
-      rand_value = rand 0..password_items.length - 1
-      pass += password_items[rand_value]
-      index += 1
-    end
-    return pass
+  def edit_set_product
+    @product = current_user.products.find(params[:id])
   end
 
 end

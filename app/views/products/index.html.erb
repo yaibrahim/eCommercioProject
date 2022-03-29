@@ -1,30 +1,31 @@
 <div class="container">
   <h1>E-commercio Store_</h1>
-  <h2>hey, <%= current_user.present? ? current_user.full_name : "Guest" %></h2>
+  <h2>Hey, <%= current_user.present? ? current_user.full_name : "Guest" %></h2>
   <h3>Latest Products</h3>
   <p>Available Products: <%= @products.length %></p>
 </div>
 
 <div class= "row g-4 py-5 row-cols-1 row-cols-lg-3">
-<% @products.each do |p|%>
-<span class="border">
-  <div class="feature col">
-  <div class="form-group">
-   <% if p.pimage.attached?%>
-      <%= image_tag p.pimage, style: "width: 200px; display: block"%>
-   <% else%>
-      <h1>no image</h1>
+   <% @products.each do |product| %>
+      <span class="border">
+         <div class="feature col">
+            <div class="form-group">
+               <% if product.pimage.attached? %>
+                  <%= image_tag product.pimage, style: "width: 200px; display: block" %>
+               <% else%>
+                  <h1>no image</h1>
+               <% end %>
+            </div>
+
+            <h2><%= product.name %></h2>
+            <p>Serial no. <%= product.serial_number %></p>
+            <p><%= product.description %></p>
+            <p>Rs. <%= product.price %></p>
+            <%= link_to 'Show', product, class:"btn btn-danger" %>
+            <%  if user_signed_in? %>
+               <%= (link_to 'Add to Cart', product, class:"btn btn-light border")%>
+            <% end %>
+         </div>
+      </span>
    <% end %>
-  </div>
-   <h2><%= p.name%></h2>
-   <p>Serial no. <%= p.serial_number%></p>
-   <p><%= p.description%></p>
-   <p>Rs. <%= p.price%></p>
-   <%= link_to 'Show', p, class:"btn btn-danger" %>
-   <% if user_signed_in? %>
-      <%= link_to 'Add to Cart', p, class:"btn btn-light border"%>
-   <% end %>
-  </div>
-</span>
-<% end %>
 </div>
