@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  DES_SIZE = '60x10'
+  DESCRIPTION_SIZE = '60x10'.freeze
 
   include ProductsHelper
 
@@ -11,7 +11,7 @@ class Product < ApplicationRecord
 
   delegate :full_name, to: :user
 
-  before_save :add_serial_number
+  before_create :add_serial_number
 
   def add_serial_number
     self.serial_number = serial_number_generator.upcase
@@ -20,5 +20,4 @@ class Product < ApplicationRecord
   def owner?(cuser_id)
     user_id == cuser_id
   end
-
 end

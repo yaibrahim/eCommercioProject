@@ -1,0 +1,12 @@
+<%= form_with model: review do |f| %>
+  <div class="field">
+    <%= f.label :review_message %><br />
+    <%= f.text_area :review_message, size: "60x10", autofocus: true  %>
+  </div>
+  <div class="field">
+    <%= f.label :product_id %>
+    <%= f.text_field :product_id , autofocus: true, placeholder: product_id , value: product_id, readonly: true %>
+  </div> <br>
+
+  <%= f.submit %>
+<% end %>

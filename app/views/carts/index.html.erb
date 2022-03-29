@@ -1,0 +1,13 @@
+<div class="container">
+  <h2>Cart_</h2>
+
+  <% @cart.each do |p|%>
+    <span class="border">
+      <div class="feature col">
+        <p>Name: <strong><%= Product.all.find(p.product_id).name%></strong></p>
+        <p>Quantity: <strong><%= p.quantity%></strong></p>
+        <%= link_to 'Destroy', cart_items_url, method: :delete, data: { confirm: "Are you sure?"}, remote: true , class: 'delete_e'%>
+      </div>
+    </span>
+  <% end %>
+</div>

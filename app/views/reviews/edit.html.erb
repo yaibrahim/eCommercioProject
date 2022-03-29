@@ -1,0 +1,5 @@
+<div class="container">
+  <h1>Edit Review</h1><br>
+  <h3>Reviews on Product #<%= params[:product_id]%></h3>
+  <%= render 'form', review: @review, product_id: params[:product_id] %>
+</div>

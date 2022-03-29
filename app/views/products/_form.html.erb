@@ -1,0 +1,26 @@
+<%= form_with model: product do |f| %>
+
+  <div class="form-group">
+     <% if product.pimage.attached? %>
+        <%= image_tag product.pimage, style: "width: 50px; display: block;  border-radius: 50%;"%>
+     <% end %>
+     <%= f.file_field :pimage, class:"form-control  form-control-sm"%>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.text_field :price, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description, size: "#{Product::DES_SIZE}", autofocus: true %>
+  </div>
+
+  <%= f.submit %>
+<% end %>
