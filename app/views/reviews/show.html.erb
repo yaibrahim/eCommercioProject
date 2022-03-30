@@ -1,3 +1,11 @@
-<h1><%= @review.product_id %></h1>
-<p><%= @review.review_message %></p>
-<p><%= @review.user_full_name%></p>
+<div class="container">
+    <div class= "row g-4 py-5 row-cols-1 row-cols-lg-3">
+      <span class="border">
+          <div class="feature col">
+            <h1>Product Id<%= @review.product_name %>_</h1>
+            <p>Review: "<%= @review.review_message %>"</p>
+            <p>Review by: <%= @review.user_full_name%></p>
+          </div>
+      </span>
+    </div>
+</div>

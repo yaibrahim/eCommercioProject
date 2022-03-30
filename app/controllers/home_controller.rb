@@ -3,7 +3,6 @@ class HomeController < ApplicationController
   end
 
   def search
-    byebug
     @product_search = Product.where("name LIKE ?","%" + params[:search] + "%")
   end
 end

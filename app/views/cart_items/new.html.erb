@@ -1,10 +1,23 @@
 <div class="container">
 <h2>Confirm and Add to Cart_</h2><br>
+
 <%= form_with model: (@cart_item) do |f| %>
+  <% if @cart_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cart_item.errors.count, "error") %> prohibited this cart item from being saved:</h2>
+
+      <ul>
+        <% @cart_item.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= f.label :product %>#
     <%= f.text_field :product_id, autofocus: true, value: params[:product_id], readonly: true, style: "#{'display:none'}" %>
-    <%= Product.all.find(params[:product_id]).name%>
+    <%= Product.name%>
   </div>
 
   <div class="field">
