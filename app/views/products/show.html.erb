@@ -8,7 +8,7 @@
           <p><%= @product.description %></p>
           <p>Rs. <%= @product.price %></p>
           <% if user_signed_in? %>
-            <%= link_to "Add #{@product.name} to cart", new_cart_item_path(product_id: @product.id, quantity: 1, cart_id: current_user.id), class:"btn btn-light border" %>
+            <%= link_to "Add #{@product.name} to cart", new_cart_item_path(p_id: @product.id, q: 1, c_id: current_user.id), class:"btn btn-light border"%>
           <% end %>
         </div>
      </span>

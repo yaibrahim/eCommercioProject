@@ -1,6 +1,5 @@
 <div class="container">
 <h2>Confirm and Add to Cart_</h2><br>
-
 <%= form_with model: (@cart_item) do |f| %>
   <% if @cart_item.errors.any? %>
     <div id="error_explanation">
@@ -16,17 +15,17 @@
 
   <div class="field">
     <%= f.label :product %>#
-    <%= f.text_field :product_id, autofocus: true, value: params[:product_id], readonly: true, style: "#{'display:none'}" %>
-    <%= Product.name%>
+    <%= f.hidden_field :product_id, autofocus: true, value: params[:p_id], readonly: true, style: "#{'display:none'}" %>
+    <%= Product.all.find(params[:p_id]).name%>
   </div>
 
   <div class="field">
     <%= f.label :quantity %><br />
-    <%= f.number_field :quantity, autofocus: true, value: params[:quantity]  %>
+    <%= f.number_field :quantity, autofocus: true, value: params[:q]  %>
   </div>
 
   <div class="field">
-    <%= f.text_field :cart_id, autofocus: true, value: params[:cart_id], readonly: true, style: "#{'display:none'}"   %>
+    <%= f.hidden_field :cart_id, autofocus: true, value: params[:c_id], readonly: true, style: "#{'display:none'}" %>
   </div><br>
 
   <%= f.submit %>
