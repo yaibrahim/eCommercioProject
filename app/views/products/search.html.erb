@@ -1,1 +1,19 @@
-<h1>Search Page</h1>
+<div class="container">
+  <h1>Search Page</h1>
+  <h6>Keyword: <%= params[:search] %></h6>
+
+<div class= "row g-4 py-5 row-cols-1 row-cols-lg-3">
+   <% @search_result.each do |product| %>
+      <span class="border">
+         <div class="feature col">
+            <h2><%= product.name %></h2>
+            <p>Serial no. <%= product.serial_number %></p>
+            <p><%= product.description %></p>
+            <p>Rs. <%= product.price %></p>
+            <%= link_to 'Show', product, class:"btn btn-danger" %>
+         </div>
+      </span>
+   <% end %>
+</div>
+<div class="container"><%= @search_result.length==0 ? "No Result Found" : "" %></div>
+</div>

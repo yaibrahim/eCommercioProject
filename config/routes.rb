@@ -15,13 +15,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :home, only: [:index] do
-    get :search
-  end
+  resources :home, only: [:index]
 
   resources :products do
     collection do
       get :list
+      get :search
     end
   end
 

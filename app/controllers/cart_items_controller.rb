@@ -21,6 +21,7 @@ class CartItemsController < ApplicationController
       end
 
     else
+
       if @cart_item.save
         redirect_to products_path
         flash[:notice] = 'Successfully added to cart...'
