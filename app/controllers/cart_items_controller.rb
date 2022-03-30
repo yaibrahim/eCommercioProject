@@ -3,14 +3,13 @@ class CartItemsController < ApplicationController
   def create
     @cart_item = CartItem.new(cart_item_params)
     if CartItem.item_existence(@cart_item[:product_id])
-
-      # puts @cart_item[:product_id]
-      # puts 'Product id is available'
-      old_quantity = CartItem.get_existed_product_quantity(@cart_item[:product_id])
-      new_quantity = (old_quantity + @cart_item[:quantity])
-      @cart_item = CartItem.find_product(@cart_item[:product_id])
-      @cart_item.quantity = new_quantity
-
+      check = CartItem.get_existed_product_quantity(@cart_item[:product_id])
+      if check == true
+        old_quantity = CartItem.where(product_id: @cart_item[:product_id])[0].quantity
+        new_quantity = (old_quantity + @cart_item[:quantity])
+        @cart_item = CartItem.find_product(@cart_item[:product_id])
+        @cart_item.quantity = new_quantity
+      end
       if @cart_item.save
         # puts @cart_item.quantity
         redirect_to products_path
@@ -37,20 +36,23 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    puts request.format
-    @cart_item.destroy
-
-    respond_to do |format|
-      format.html { redirect_to carts_url, notice: 'Cart Item was successfully destroyed.' }
-      format.json { head :no_content }
-      format.js
-    end
   end
 
   def edit
   end
 
   def update
+  end
+
+  def destroy
+    byebug
+    @cart_item.destroy
+
+    respond_to do |format|
+      format.html { redirect_to products_url, notice: 'Item was successfully deleted.' }
+      format.json { head :no_content }
+      format.js
+    end
   end
 
   private

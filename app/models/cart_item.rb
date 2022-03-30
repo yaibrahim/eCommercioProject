@@ -7,7 +7,7 @@ class CartItem < ApplicationRecord
 
   scope :item_existence, ->(product_id) { where(product_id: product_id).exists? }
 
-  scope :get_existed_product_quantity, ->(product_id) { where(product_id: product_id).first.quantity }
+  scope :get_existed_product_quantity, ->(product_id) { where(product_id: product_id).exists? }
 
   scope :find_product, ->(product_id) { find_by(product_id: product_id) }
 
