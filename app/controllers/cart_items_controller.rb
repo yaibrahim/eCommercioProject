@@ -45,11 +45,10 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    byebug
     @cart_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Item was successfully deleted.' }
+      format.html { redirect_to carts_url, notice: 'Item was successfully deleted.' }
       format.json { head :no_content }
       format.js
     end

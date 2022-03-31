@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'orders/index'
+  get 'order_items/index'
   root to: 'products#index'
 
   resources :reviews do
