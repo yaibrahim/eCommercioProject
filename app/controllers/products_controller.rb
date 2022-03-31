@@ -42,7 +42,11 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @search_result = Product.where("name LIKE ?","%" + params[:search] + "%")
+    if params[:search] == params[:search].capitalize
+      @search_result = Product.where("name LIKE ?","%" + params[:search].capitalize + "%")
+    else
+      @search_result = Product.where("name LIKE ?","%" + params[:search] + "%")
+    end
   end
 
   private
