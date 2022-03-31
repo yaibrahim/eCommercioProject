@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Order Details</h1>
+  <% @order_detail.each do |order|%>
+    <span class="border">
+      <div class="feature col">
+        <p>Product# <strong><%= order.product_name %></strong></p>
+        <p>Price: <strong><%= order.product_price %> Rs.</strong></p>
+        <p>Quantity: <strong><%= order.quantity %></strong></p>
+        <p>Total: <strong><%= order.quantity * order.product_price %>Rs.</strong></p>
+      </div>
+    </span>
+  <% end %>
+</div>

@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :orders
+  resources :orders do
+    collection do
+      get :detail
+    end
+  end
+
   root to: 'products#index'
 
   resources :reviews do

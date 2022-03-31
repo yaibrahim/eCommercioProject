@@ -11,4 +11,8 @@ class Order < ApplicationRecord
     self.status = :initiated
   end
 
+  def name
+    'ORDER'
+  end
+
 end

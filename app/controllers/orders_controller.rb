@@ -1,5 +1,10 @@
 class OrdersController < ApplicationController
   def index
+    @orders = Order.where(user_id: current_user.id)
+  end
+
+  def detail
+    @order_detail = OrderItem.where(order_id: params[:id])
   end
 
   def new
