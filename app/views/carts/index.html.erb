@@ -10,5 +10,6 @@
       </div>
     </span>
   <% end %>
-  <div class="container"><%= link_to "Finalize Order","", class:"btn btn-danger"%></div>
+  <div class="container"><%= (link_to "Finalize Order", new_order_path, class:"btn btn-danger") if @cart.exists? %></div>
+  <div class="container"><%= "Cart is Empty !!" unless @cart.exists? %></div>
 </div>

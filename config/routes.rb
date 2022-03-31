@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  get 'orders/index'
-  get 'order_items/index'
+  resources :orders
   root to: 'products#index'
 
   resources :reviews do
@@ -9,6 +8,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :order_items
   resources :carts
   resources :cart_items, only: [:create, :new, :show, :destroy] do
     collection do

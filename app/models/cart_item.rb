@@ -5,6 +5,8 @@ class CartItem < ApplicationRecord
 
   scope :user_cart, ->(cart_id) { where(cart_id: cart_id) }
 
+  scope :delete_user_cart, ->(cart_id) { where(cart_id: cart_id).delete_all }
+
   scope :item_existence, ->(product_id) { where(product_id: product_id).exists? }
 
   scope :get_existed_product_quantity, ->(product_id) { where(product_id: product_id).exists? }

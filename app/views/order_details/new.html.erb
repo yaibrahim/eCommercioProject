@@ -1,0 +1,46 @@
+<h1>OrderDetails#new</h1>
+<p>Find me in app/views/order_details/new.html.erb</p>
+<%= form_with model: @order do |f| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this @order from being saved:</h2>
+
+      <ul>
+        <% @order.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :coupon_id %><br />
+    <%= f.text_field :coupon_id, autofocus: true %>
+  </div>
+
+  <%= f.submit %>
+<% end %>
+
+
+<div class="container">
+  <h1>Confirm your order details_</h1>
+  <% @cart_item.each do |cart_item|%>
+    <span class="border">
+      <div class="feature col">
+        <p>Name: <strong><%= cart_item.product.name %></strong></p>
+        <p>Quantity: <strong><%= cart_item.quantity %></strong></p>
+      </div>
+    </span>
+  <% end %>
+  <h2>Order Status: <%= @status%></h2>
+</div>
