@@ -25,7 +25,7 @@
         <p>Review by: <%= review.full_name %></p> <!-- delegate -->
 
         <%= current_user.present? ? (review.owner?(current_user.id) ? (link_to "Edit",edit_product_review_path(@product.id,review.id), class:"btn btn-danger") : "") : "" %>
-        <%= current_user.present? ? (review.owner?(current_user.id)  ? (link_to 'Delete',product_review_path(@product.id,review.id), method: :delete, data: { confirm: "Are you sure?"}, class:"btn btn-danger") : ""): "" %>
+        <%= current_user.present? ? (review.owner?(current_user.id)  ? (link_to 'Delete',product_review_path(@product.id,review.id), method: :delete, data: { confirm: "Are you sure?"}, class:"btn btn-danger", remote: true) : ""): "" %>
       </div>
     </span>
   <% end %>
