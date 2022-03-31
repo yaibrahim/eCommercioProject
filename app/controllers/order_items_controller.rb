@@ -22,7 +22,7 @@ class OrderItemsController < ApplicationController
     if @order_item.save
       redirect_to products_path
       flash[:alert] = 'Order is finalized'
-      CartItem.delete_user_cart(cart_id: current_user.id)
+      CartItem.delete_user_cart(current_user.id)
       flash[:notice] = 'Cart Cleared'
     else
       redirect_to products_path
