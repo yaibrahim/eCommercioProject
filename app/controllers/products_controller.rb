@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :edit]
-  #before_action :edit_set_product, only: [:edit]
+  # before_action :edit_set_product, only: [:edit]
   before_action :require_user_edit, only: [:edit, :update]
 
   #include ProductsHelper

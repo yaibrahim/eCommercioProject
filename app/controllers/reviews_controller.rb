@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
 before_action :find_review, only: [:show, :edit, :update, :destroy]
+before_action :require_user_edit, only: [:edit, :update]
 
   def index
   end
@@ -56,6 +57,13 @@ before_action :find_review, only: [:show, :edit, :update, :destroy]
 
   def find_review
     @review = Review.find(params[:id])
+  end
+
+  def require_user_edit
+    if @review.user_id != current_user.id
+      flash[:alert] = "You can't edit or update others review.."
+      redirect_to products_path
+    end
   end
 
 end
