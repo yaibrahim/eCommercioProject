@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :update]
-  before_action :edit_set_product, only: [:edit]
+  before_action :set_product, only: [:show, :update, :edit]
+  #before_action :edit_set_product, only: [:edit]
+  before_action :require_user_edit, only: [:edit, :update]
 
   #include ProductsHelper
 
@@ -61,6 +62,13 @@ class ProductsController < ApplicationController
 
   def edit_set_product
     @product = current_user.products.find(params[:id])
+  end
+
+  def require_user_edit
+    if @product.user_id != current_user.id
+      flash[:notice] = "You can't edit someones product"
+      redirect_to products_path
+    end
   end
 
 end
