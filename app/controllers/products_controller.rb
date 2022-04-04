@@ -1,9 +1,9 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :edit]
-  # before_action :edit_set_product, only: [:edit]
+  before_action :require_login, only: [:edit]
   before_action :require_user_edit, only: [:edit, :update]
 
-  #include ProductsHelper
+  # include ProductsHelper
 
   def index
     @products = Product.all
@@ -67,6 +67,13 @@ class ProductsController < ApplicationController
   def require_user_edit
     if @product.user_id != current_user.id
       flash[:notice] = "You can't edit someones product"
+      redirect_to products_path
+    end
+  end
+
+  def require_login
+    if !current_user.present?
+      flash[:notice] = "You can't edit someones product required login"
       redirect_to products_path
     end
   end
