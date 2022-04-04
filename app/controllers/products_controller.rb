@@ -73,7 +73,7 @@ class ProductsController < ApplicationController
 
   def require_login
     if !current_user.present?
-      flash[:notice] = "You can't edit someones product required login"
+      flash[:notice] = "You can't edit someones product required"
       redirect_to products_path
     end
   end

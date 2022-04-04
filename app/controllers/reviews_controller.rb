@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
 before_action :find_review, only: [:show, :edit, :update, :destroy]
+before_action :require_login, only: [:edit]
 before_action :require_user_edit, only: [:edit, :update]
 
   def index
@@ -66,4 +67,10 @@ before_action :require_user_edit, only: [:edit, :update]
     end
   end
 
+  def require_login
+    if !current_user.present?
+      flash[:notice] = "You can't edit someones review required login"
+      redirect_to products_path
+    end
+  end
 end
