@@ -6,23 +6,20 @@ class CartItemsController < ApplicationController
   end
 
   def create
+    byebug
     @cart_item = CartItem.new(cart_item_params)
-    if CartItem.product_exists(@cart_item[:product_id])
+    if CartItem.product_exists?(@cart_item.cart_id, @cart_item.product_id)
+      product = CartItem.find_product(@cart_item.cart_id, @cart_item.product_id)
+      new_quantity = product.quantity + @cart_item.quantity
+      product.update(quantity: new_quantity)
 
-      if CartItem.get_existed_product_quantity(@cart_item[:product_id])
-        old_quantity = CartItem.where(product_id: @cart_item[:product_id])[0].quantity
-        new_quantity = (old_quantity + @cart_item[:quantity])
-        @cart_item = CartItem.find_product(@cart_item[:product_id])
-        @cart_item.quantity = new_quantity
-
-      elsif @cart_item.save
-        redirect_to products_path, alert: 'Cart Updated'
-      else
-        redirect_to products_path, alert: 'There is some problem'
-      end
-
+      redirect_to products_path, alert: 'Cart Updated' if product.save
     else
-      redirect_to products_path, notice: 'Cart is Updated...'
+      if @cart_item.save
+        redirect_to products_path, alert: 'Product Added to Cart'
+      else
+        redirect_to products_path, alert: @cart_item.errors.full_messages.to_sentence
+      end
     end
   end
 

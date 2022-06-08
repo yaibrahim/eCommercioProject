@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
   def index
-    @cart = CartItem.user_cart(current_user.id)
+    @cart = CartItem.user_cart(current_user.cart.id)
   end
 
   def destroy

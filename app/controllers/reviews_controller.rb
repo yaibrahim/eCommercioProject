@@ -36,9 +36,7 @@ before_action :require_user_edit, only: [:edit, :update]
   end
 
   def list
-    # this is better.
     @reviews = current_user.reviews
-    # @reviews = Review.all_reviews(current_user.id)
   end
 
   def destroy

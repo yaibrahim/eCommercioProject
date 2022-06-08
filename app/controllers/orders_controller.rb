@@ -12,8 +12,7 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    @cart_item = CartItem.user_cart(current_user.id)
-    @status = :initiated # this should be the default value and we shouldn't need to add this here.
+    @cart_item = CartItem.user_cart(current_user.cart.id)
   end
 
   def create

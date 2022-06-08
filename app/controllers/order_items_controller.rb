@@ -10,7 +10,7 @@ class OrderItemsController < ApplicationController
   def create
     @order_item = OrderItem.new(order_item_params)
 
-    @cart_item = CartItem.user_cart(current_user.id)
+    @cart_item = CartItem.user_cart(current_user.cart.id)
 
     @cart_item.each do |item|
       @order_item = OrderItem.new(order_item_params)
@@ -22,7 +22,7 @@ class OrderItemsController < ApplicationController
 
     if @order_item.save
       flash[:alert] = 'Order is finalized'
-      CartItem.delete_user_cart(current_user.id)
+      CartItem.delete_user_cart(current_user.cart.id)
       flash[:notice] = 'Cart Cleared'
       redirect_to products_path
     else
