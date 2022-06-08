@@ -9,7 +9,7 @@ class Product < ApplicationRecord
 
   delegate :full_name, to: :user
 
-  scope :with_name_like, ->(_keyword) { where("name LIKE ?","%" + params[:search] + "%") }
+  scope :with_name_like, ->(_keyword) { where("name LIKE ?","%" + _keyword + "%") }
 
   validates :name, :description, :price, presence: { message: 'can\'t be blank' }
   validates :description, length: { maximum: 300, too_long: '`%<count>s` characters is the maximum allowed' }
@@ -32,6 +32,6 @@ class Product < ApplicationRecord
   end
 
   def not_an_owner?(current_user_id)
-    !owner? current_user_id
+    owner? current_user_id
   end
 end

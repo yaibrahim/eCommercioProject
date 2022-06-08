@@ -50,7 +50,10 @@ class ProductsController < ApplicationController
   end
 
   def set_product
-    @product = Product.find_by!(id: params[:id])
+    @product = Product.find_by(id: params[:id])
+    if @product.nil?
+      redirect_to products_path, notice: 'Product not found'
+    end
   end
 
   def edit_set_product
@@ -64,7 +67,7 @@ class ProductsController < ApplicationController
   end
 
   def authenticate_user
-    unless current_user?
+    unless current_user.present?
       flash[:notice] = 'You need to login to perform any action.'
       redirect_to products_path
     end
