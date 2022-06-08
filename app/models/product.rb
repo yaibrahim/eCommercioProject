@@ -1,12 +1,13 @@
 class Product < ApplicationRecord
-  DESCRIPTION_SIZE = '60x10'.freeze
+  DESCRIPTION_SIZE = '60x10'.freeze # this is more related to views so we can keep this in view helpers
 
-  include ProductsHelper
+  include ProductsHelper # should never include view helper in model.
 
   belongs_to :user
 
-  has_many :reviews
+  # has many orders is missing maybe.
   has_many :order_items
+  has_many :reviews
 
   has_one_attached :pimage
 
@@ -18,7 +19,9 @@ class Product < ApplicationRecord
   validates :user_id, presence: { message: 'user must be present' }
   validates :price, numericality: { only_integer: true, message: 'must be integer value (without decimal) not this `%<value>s`' }
 
-  before_create :add_serial_number
+  # try to implement custom validation i.e VALIDATE.
+
+  before_create :add_serial_number # set serial number is a better name
 
   def add_serial_number
     self.serial_number = serial_number_generator.upcase

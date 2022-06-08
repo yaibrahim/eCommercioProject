@@ -3,7 +3,11 @@ module ProductsHelper
     @product.reviews
   end
 
+  # this is wrong usage of helper. Helpers are meant to provide helper methods to views or controllers. NOT TO MODELS.
   def serial_number_generator
+    # password_items variable in serial_number_generator doesnt make sense :(
+
+    # Also the serial number could be "#{self.id}_#{self.created_at}_#{self.user_id}" this could have made serial number proper and methodological
     password_items = '0123456789abcdefghijklmnopqrstuvwxyz'
     pass = ''
     index = 0
