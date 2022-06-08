@@ -9,7 +9,7 @@ class CartItem < ApplicationRecord
   scope :find_product, ->(product_id) { find_by(product_id: product_id) }
 
   # both following scopes are same with different names.
-  scope :item_existence, ->(product_id) { where(product_id: product_id).exists? }
+  scope :product_exists, ->(product_id) { where(product_id: product_id).exists? }
   scope :get_existed_product_quantity, ->(product_id) { where(product_id: product_id).exists? }
 
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
