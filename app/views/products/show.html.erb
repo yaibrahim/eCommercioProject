@@ -14,7 +14,7 @@
      </span>
   </div>
 
-  <%= current_user.present? ? (@product.owner?(current_user.id) ? "You Can't share review on this product" : (link_to 'Type Your Review', new_product_review_path(@product.id), class:"btn btn-danger")) : "" %>
+  <%= current_user.present? ? (@product.user_id == current_user.id ? "You Can't share review on your own product" : (link_to 'Type Your Review', new_product_review_path(@product.id), class:"btn btn-danger")) : "" %>
   <br><br>
   <h3>Reviews</h3>
   <p> <%= 'No Reviews' unless @product.reviews.exists? %></p>

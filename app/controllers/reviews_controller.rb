@@ -1,7 +1,6 @@
 class ReviewsController < ApplicationController
 before_action :set_review, only: [:show, :edit, :update, :destroy]
-before_action :authenticate_us, only: [:edit]
-before_action :authorize_review_owner, only: [:edit, :update]
+before_action :authenticate_user!, only: [:edit, :update]
 
   def index
   end
@@ -13,7 +12,7 @@ before_action :authorize_review_owner, only: [:edit, :update]
   def create
     @review = current_user.reviews.new(review_params)
     if @review.save
-      redirect_to product_review_path(@review.product_id, @review)
+      redirect_to product_path(@review.product_id)
       flash[:notice] = 'review added...'
     else
       flash[:notice] = 'There is some problem..'
@@ -55,6 +54,7 @@ before_action :authorize_review_owner, only: [:edit, :update]
 
   def set_review
     @review = Review.find_by(id: params[:id])
+    authorize @review
     if @review.nil?
       redirect_to products_path, notice: 'Review not found'
     end
