@@ -4,15 +4,17 @@ class OrdersController < ApplicationController
   end
 
   def detail
-    # what if we could set_order first and then you'll need to do
-    # @order_details = @order.order_items
-
-    @order_detail = OrderItem.where(order_id: params[:id])
+    order = Order.find_by(id: params[:id])
+    if order.nil?
+      redirect_to orders_path, notice: 'Order id not exist'
+    else
+      @order_detail = order.order_items
+    end
   end
 
   def new
     @order = Order.new
-    @cart_item = CartItem.user_cart(current_user.cart.id)
+    @cart_item = current_user.cart.cart_items
   end
 
   def create
@@ -21,9 +23,8 @@ class OrdersController < ApplicationController
     if @order.save
       redirect_to new_order_item_path(order_id: @order.id), alert: 'Order assigned finalization needed..'
     else
+      flash.now[:notice] = @order.errors.full_messages.to_sentence
       render :new
-      # flash nai chal rha hoga with render. google k flash and render kuen nai chalta
-      flash[:alert] = 'there is some issue'
     end
   end
 

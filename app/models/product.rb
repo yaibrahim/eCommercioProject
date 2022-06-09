@@ -9,7 +9,7 @@ class Product < ApplicationRecord
 
   delegate :full_name, to: :user
 
-  scope :with_name_like, ->(_keyword) { where("name LIKE ?","%" + _keyword + "%") }
+  scope :with_name_like, ->(keyword) { where('name LIKE ?','%' + keyword + '%') }
 
   validates :name, :description, :price, presence: { message: 'can\'t be blank' }
   validates :description, length: { maximum: 300, too_long: '`%<count>s` characters is the maximum allowed' }

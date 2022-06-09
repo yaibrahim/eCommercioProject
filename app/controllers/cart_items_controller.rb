@@ -6,7 +6,6 @@ class CartItemsController < ApplicationController
   end
 
   def create
-    byebug
     @cart_item = CartItem.new(cart_item_params)
     if CartItem.product_exists?(@cart_item.cart_id, @cart_item.product_id)
       product = CartItem.find_product(@cart_item.cart_id, @cart_item.product_id)

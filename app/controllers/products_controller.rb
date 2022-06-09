@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :edit]
   before_action :authenticate_user, only: [:edit]
-  before_action :authorize_product_owner, only: [:edit, :update]
+  # before_action :authorize_product_owner, only: [:edit, :update]
 
   def index
     @products = Product.all
@@ -40,7 +40,7 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @search_result = Product.where('name LIKE ?', '%' + params[:search] + '%')
+    @search_result = Product.with_name_like(params[:search])
   end
 
   private

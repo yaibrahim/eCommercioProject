@@ -55,7 +55,10 @@ before_action :require_user_edit, only: [:edit, :update]
   end
 
   def set_review
-    @review = Review.find(params[:id])
+    @review = Review.find_by(id: params[:id])
+    if @review.nil?
+      redirect_to products_path, notice: 'Review not found'
+    end
   end
 
   def require_user_edit # same as in products controller
