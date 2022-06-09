@@ -1,3 +1,3 @@
 class Coupon < ApplicationRecord
-  # shouldn't be empty
+  has_one :order
 end
