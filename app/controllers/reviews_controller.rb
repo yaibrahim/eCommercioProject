@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-before_action :set_review, only: [:show, :edit, :update, :destroy]
+before_action :set_review, only: [:edit, :update, :destroy]
 before_action :authenticate_user!, only: [:edit, :update]
 
   def index
@@ -19,9 +19,6 @@ before_action :authenticate_user!, only: [:edit, :update]
     end
   end
 
-  def show
-  end
-
   def edit
   end
 
@@ -38,11 +35,7 @@ before_action :authenticate_user!, only: [:edit, :update]
   end
 
   def destroy
-    puts request.format
-
-    @review.destroy
-
-    # what if review doesnt get destroyed for some reason?? we are not handling the errors here
+    @review.destroy!
     redirect_to products_url, notice: 'Reviews was successfully destroyed.'
   end
 

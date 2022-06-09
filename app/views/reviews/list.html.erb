@@ -9,7 +9,7 @@
       <div class="feature col">
         <h2>Review Message: "<i><%= review.review_message %></i>"</h2>
         <p>Product:  <strong><%= review.product_name %></strong></p> <!-- delegate for product in review added-->
-        <p>Review by:  <strong><%= review.user_full_name %></strong></p> <!-- delegate for reviewer name in review added-->
+        <p>Review by:  <strong><%= review.user.full_name %></strong></p> <!-- delegate for reviewer name in review added-->
         <%= link_to 'Edit', edit_product_review_path(review.product_id,review.id), class:"btn btn-danger" %>
       </div>
     </span>

@@ -19,6 +19,7 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_user.orders.new(order_params)
+    @cart_item = current_user.cart.cart_items
 
     if @order.save
       redirect_to new_order_item_path(order_id: @order.id), alert: 'Order assigned finalization needed..'

@@ -1,4 +1,5 @@
 class CartsController < ApplicationController
+  before_action :authenticate_user!, only: [:destroy]
   def index
     @cart = CartItem.user_cart(current_user.cart.id)
   end

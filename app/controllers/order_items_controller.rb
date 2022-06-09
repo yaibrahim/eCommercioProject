@@ -1,4 +1,5 @@
 class OrderItemsController < ApplicationController
+  before_action :authenticate_user!, only: [:create]
   def index
   end
 
@@ -14,7 +15,6 @@ class OrderItemsController < ApplicationController
       @order_item = OrderItem.new(order_item_params)
       @order_item.product_id = item.product_id
       @order_item.quantity = item.quantity
-      @order_item.discount = 0
       @order_item.save
     end
 
