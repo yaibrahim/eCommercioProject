@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :edit]
-  before_action :authenticate_user, only: [:edit]
-  # before_action :authorize_product_owner, only: [:edit, :update]
+  before_action :authenticate_user!, only: [:edit]
+  before_action :authorize_product_owner, only: [:edit, :update]
 
   def index
     @products = Product.all

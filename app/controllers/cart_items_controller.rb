@@ -11,8 +11,7 @@ class CartItemsController < ApplicationController
       product = CartItem.find_product(@cart_item.cart_id, @cart_item.product_id)
       new_quantity = product.quantity + @cart_item.quantity
       product.update(quantity: new_quantity)
-
-      redirect_to products_path, alert: 'Cart Updated' if product.save
+      redirect_to products_path, alert: 'Cart Updated'
     else
       if @cart_item.save
         redirect_to products_path, alert: 'Product Added to Cart'

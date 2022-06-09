@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
 before_action :set_review, only: [:show, :edit, :update, :destroy]
-before_action :require_login, only: [:edit]
-before_action :require_user_edit, only: [:edit, :update]
+before_action :authenticate_us, only: [:edit]
+before_action :authorize_review_owner, only: [:edit, :update]
 
   def index
   end
@@ -18,7 +18,6 @@ before_action :require_user_edit, only: [:edit, :update]
     else
       flash[:notice] = 'There is some problem..'
     end
-
   end
 
   def show
@@ -61,14 +60,14 @@ before_action :require_user_edit, only: [:edit, :update]
     end
   end
 
-  def require_user_edit # same as in products controller
+  def authorize_review_owner
     if @review.user_id != current_user.id
       flash[:alert] = "You can't edit or update others review.."
       redirect_to products_path
     end
   end
 
-  def require_login # same as in products controller
+  def authenticate_user
     if !current_user.present?
       flash[:notice] = "You can't edit someones review required login"
       redirect_to products_path
