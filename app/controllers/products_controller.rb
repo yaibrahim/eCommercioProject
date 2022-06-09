@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :edit]
-  before_action :authenticate_user!, only: [:edit]
-  before_action :authorize_product_owner, only: [:edit, :update]
+  # before_action -> { authorize(Product) }
+  before_action :authenticate_user!, only: [:edit, :update]
 
   def index
     @products = Product.all
@@ -22,6 +22,8 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    @product = Product.find(params[:id])
+    authorize @product
   end
 
   def show
@@ -57,19 +59,18 @@ class ProductsController < ApplicationController
   end
 
   def edit_set_product
-    @product = current_user.products.find(params[:id])
   end
 
-  def authorize_product_owner
-    if @product.not_an_owner? current_user.id
-      redirect_to products_path, notice: "You can't edit someones product"
-    end
-  end
+  # def authorize_product_owner
+  #   if @product.not_an_owner? current_user.id
+  #     redirect_to products_path, notice: "You can't edit someones product"
+  #   end
+  # end
 
-  def authenticate_user
-    unless current_user.present?
-      flash[:notice] = 'You need to login to perform any action.'
-      redirect_to products_path
-    end
-  end
+  # def authenticate_user
+  #   unless current_user.present?
+  #     flash[:notice] = 'You need to login to perform any action.'
+  #     redirect_to products_path
+  #   end
+  # end
 end
