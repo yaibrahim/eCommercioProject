@@ -1,10 +1,13 @@
 class OrdersController < ApplicationController
   def index
     @orders = Order.where(user_id: current_user.id).paginate(page: params[:page], per_page: 4)
+    authorize @orders
+
   end
 
   def detail
     order = Order.find_by(id: params[:id])
+    authorize order
     if order.nil?
       redirect_to orders_path, notice: 'Order id not exist'
     else
