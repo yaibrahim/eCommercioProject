@@ -7,14 +7,20 @@ class ReviewPolicy < ApplicationPolicy
   end
 
   def edit?
-    update?
+    authorize_user_id?
   end
 
   def update?
-    @user.id == @record.user_id
+    authorize_user_id?
   end
 
   def destroy?
+    authorize_user_id?
+  end
+
+  private
+
+  def authorize_user_id?
     @user.id == @record.user_id
   end
 end
