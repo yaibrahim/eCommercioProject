@@ -5,10 +5,7 @@ Rails.application.routes.draw do
     get :detail, on: :collection
   end
 
-  resources :reviews do
-    get :list, on: :collection
-  end
-
+  resources :reviews, only: [:index]
   resources :order_items
   resources :carts, path: :cart, only: [:index, :new]
 

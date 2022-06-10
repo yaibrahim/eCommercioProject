@@ -3,6 +3,7 @@ before_action :set_review, only: [:edit, :update, :destroy]
 before_action :authenticate_user!, only: [:edit, :update]
 
   def index
+    @reviews = current_user.reviews.paginate(page: params[:page], per_page: 10)
   end
 
   def new
@@ -28,10 +29,6 @@ before_action :authenticate_user!, only: [:edit, :update]
     else
       render :list, status: 422
     end
-  end
-
-  def list
-    @reviews = current_user.reviews.paginate(page: params[:page], per_page: 10)
   end
 
   def destroy
