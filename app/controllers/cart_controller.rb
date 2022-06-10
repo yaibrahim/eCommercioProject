@@ -1,4 +1,4 @@
-class CartsController < ApplicationController
+class CartController < ApplicationController
   before_action :authenticate_user!, only: [:destroy]
   def index
     @cart = CartItem.user_cart(current_user.cart.id)
@@ -9,7 +9,7 @@ class CartsController < ApplicationController
     @cart_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to carts_url, notice: 'Cart Item was successfully destroyed.' }
+      format.html { redirect_to cart_index_url, notice: 'Cart Item was successfully destroyed.' }
       format.json { head :no_content }
       format.js
     end

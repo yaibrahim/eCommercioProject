@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :reviews, only: [:index]
   resources :order_items
-  resources :carts, path: :cart, only: [:index, :new]
+  resources :cart, only: [:index]
 
   resources :cart_items, only: [:create, :new, :show, :destroy]
 

@@ -31,7 +31,7 @@ class CartItemsController < ApplicationController
     @cart_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to carts_url, notice: 'Item was successfully deleted.' }
+      format.html { redirect_to cart_index_url, notice: 'Item was successfully deleted.' }
       format.json { head :no_content }
       format.js
     end
