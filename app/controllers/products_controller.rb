@@ -1,6 +1,5 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :edit]
-  # before_action -> { authorize(Product) }
   before_action :authenticate_user!, only: [:edit, :update]
 
   def index
@@ -59,20 +58,4 @@ class ProductsController < ApplicationController
       redirect_to products_path, notice: 'Product not found'
     end
   end
-
-  def edit_set_product
-  end
-
-  # def authorize_product_owner
-  #   if @product.not_an_owner? current_user.id
-  #     redirect_to products_path, notice: "You can't edit someones product"
-  #   end
-  # end
-
-  # def authenticate_user
-  #   unless current_user.present?
-  #     flash[:notice] = 'You need to login to perform any action.'
-  #     redirect_to products_path
-  #   end
-  # end
 end

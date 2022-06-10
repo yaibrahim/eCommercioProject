@@ -52,18 +52,4 @@ before_action :authenticate_user!, only: [:edit, :update]
       redirect_to products_path, notice: 'Review not found'
     end
   end
-
-  def authorize_review_owner
-    if @review.user_id != current_user.id
-      flash[:alert] = "You can't edit or update others review.."
-      redirect_to products_path
-    end
-  end
-
-  def authenticate_user
-    if !current_user.present?
-      flash[:notice] = "You can't edit someones review required login"
-      redirect_to products_path
-    end
-  end
 end

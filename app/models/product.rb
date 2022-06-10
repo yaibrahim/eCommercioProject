@@ -1,5 +1,4 @@
 class Product < ApplicationRecord
-
   belongs_to :user
 
   has_many :order_items
@@ -25,13 +24,5 @@ class Product < ApplicationRecord
 
   def serial_number_generator
     _serial_no = "#{id}_#{created_at}_#{user_id}"
-  end
-
-  def owner?(current_user_id)
-    user_id != current_user_id
-  end
-
-  def not_an_owner?(current_user_id)
-    owner? current_user_id
   end
 end
