@@ -31,7 +31,7 @@ before_action :authenticate_user!, only: [:edit, :update]
   end
 
   def list
-    @reviews = current_user.reviews
+    @reviews = current_user.reviews.paginate(page: params[:page], per_page: 10)
   end
 
   def destroy

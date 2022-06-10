@@ -13,6 +13,8 @@ gem 'puma', '~> 5.0'
 gem 'pundit'
 gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
+gem 'will_paginate', '~> 3.3'
+gem 'will_paginate-bootstrap4'
 gem 'webpacker', '~> 5.0'
 
 gem 'bootsnap', '>= 1.4.4', require: false

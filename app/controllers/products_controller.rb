@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update]
 
   def index
-    @products = Product.all
+    @products = Product.paginate(page: params[:page], per_page: 15)
   end
 
   def new
@@ -38,7 +38,7 @@ class ProductsController < ApplicationController
   end
 
   def list
-    @my_products = current_user.products
+    @my_products = current_user.products.paginate(page: params[:page], per_page: 12)
   end
 
   def search
