@@ -6,6 +6,8 @@ ruby '3.0.3'
 gem 'rails', '~> 6.1.2'
 
 gem 'jbuilder', '~> 2.7'
+gem 'devise', '~> 4.8.1'
+gem 'ffaker'
 gem 'pg', '~> 1.3.4'
 gem 'puma', '~> 5.0'
 gem 'pundit'
@@ -33,6 +35,3 @@ group :test do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem 'devise', '~> 4.8.1'
-# alphabetic order maintain krna hota.
