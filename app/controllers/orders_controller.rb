@@ -1,30 +1,24 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
   def index
-    @orders = Order.where(user_id: current_user.id)
-  end
-
-  def detail
-    # what if we could set_order first and then you'll need to do
-    # @order_details = @order.order_items
-
-    @order_detail = OrderItem.where(order_id: params[:id])
+    @orders = current_user.orders.paginate(page: params[:page], per_page: 4)
+    authorize @orders
   end
 
   def new
     @order = Order.new
-    @cart_item = CartItem.user_cart(current_user.id)
-    @status = :initiated # this should be the default value and we shouldn't need to add this here.
+    @cart_item = current_user.cart.cart_items
   end
 
   def create
     @order = current_user.orders.new(order_params)
+    @cart_item = current_user.cart.cart_items
 
     if @order.save
       redirect_to new_order_item_path(order_id: @order.id), alert: 'Order assigned finalization needed..'
     else
+      flash.now[:notice] = @order.errors.full_messages.to_sentence
       render :new
-      # flash nai chal rha hoga with render. google k flash and render kuen nai chalta
-      flash[:alert] = 'there is some issue'
     end
   end
 

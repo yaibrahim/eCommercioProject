@@ -6,8 +6,13 @@
         <p>Order Date: <%= order.created_at %></p>
         <p>Order# <strong><%= order.id %></strong></p>
         <p>Status: <strong><%= order.status %></strong></p>
-        <%= link_to 'Details', detail_orders_path(id: order.id), class:"btn btn-danger" %>
+        <%= link_to 'Details', order_details_path(id: order.id), class:"btn btn-danger" %>
       </div>
     </span>
   <% end %>
+</div>
+<div class= "container">
+  <div class="container">
+      <%= will_paginate @orders %>
+  </div>
 </div>

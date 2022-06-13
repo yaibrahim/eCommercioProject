@@ -8,13 +8,13 @@
           <p><%= @product.description %></p>
           <p>Rs. <%= @product.price %></p>
           <% if user_signed_in? %>
-            <%= link_to "Add #{@product.name} to cart", new_cart_item_path(p_id: @product.id, q: 1, c_id: current_user.id), class:"btn btn-light border"%>
+            <%= link_to "Add #{@product.name} to cart", new_cart_item_path(p_id: @product.id, q: 1, c_id: current_user.cart.id), class:"btn btn-light border"%>
           <% end %>
         </div>
      </span>
   </div>
 
-  <%= current_user.present? ? (@product.owner?(current_user.id) ? "You Can't share review on this product" : (link_to 'Type Your Review', new_product_review_path(@product.id), class:"btn btn-danger")) : "" %>
+  <%= current_user.present? ? (@product.user_id == current_user.id ? "You Can't share review on your own product" : (link_to 'Type Your Review', new_product_review_path(@product.id), class:"btn btn-danger")) : "" %>
   <br><br>
   <h3>Reviews</h3>
   <p> <%= 'No Reviews' unless @product.reviews.exists? %></p>
@@ -22,7 +22,7 @@
     <span class="border">
       <div class="feature col">
         <h4>Review Message: "<i><%= review.review_message %></i>"</h4>
-        <p>Review by: <%= review.full_name %></p> <!-- delegate -->
+        <p>Review by: <%= review.full_name %></p>
 
         <%= current_user.present? ? (review.owner?(current_user.id) ? (link_to "Edit",edit_product_review_path(@product.id,review.id), class:"btn btn-danger") : "") : "" %>
         <%= current_user.present? ? (review.owner?(current_user.id)  ? (link_to 'Delete',product_review_path(@product.id,review.id), method: :delete, data: { confirm: "Are you sure?"}, class:"btn btn-danger", remote: true) : ""): "" %>

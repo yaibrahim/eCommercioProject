@@ -11,7 +11,7 @@
          <div class="feature col">
             <div class="form-group">
                <% if product.pimage.attached? %>
-                  <%= image_tag product.pimage, style: "width: 200px; display: block" %>
+                  <%= image_tag product.pimage, style: "height: 200px ;width: 200px; display: block" %>
                <% else%>
                   <h1>no image</h1>
                <% end %>
@@ -23,9 +23,14 @@
             <p>Rs. <%= product.price %></p>
             <%= link_to 'Show', product, class:"btn btn-danger" %>
             <%  if user_signed_in? %>
-               <%= (link_to 'Add to Cart', product, class:"btn btn-light border")%>
+               <%= (link_to 'Add to Cart', new_cart_item_path(p_id: product.id, q: 1, c_id: current_user.cart.id), class:"btn btn-light border")%>
             <% end %>
          </div>
       </span>
    <% end %>
+</div>
+<div class= "container">
+   <div class="container">
+      <%= will_paginate @products %>
+   </div>
 </div>

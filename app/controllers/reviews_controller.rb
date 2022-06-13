@@ -1,9 +1,9 @@
 class ReviewsController < ApplicationController
-before_action :set_review, only: [:show, :edit, :update, :destroy]
-before_action :require_login, only: [:edit]
-before_action :require_user_edit, only: [:edit, :update]
+before_action :set_review, only: [:edit, :update, :destroy]
+before_action :authenticate_user!
 
   def index
+    @reviews = current_user.reviews.paginate(page: params[:page], per_page: 10)
   end
 
   def new
@@ -13,15 +13,11 @@ before_action :require_user_edit, only: [:edit, :update]
   def create
     @review = current_user.reviews.new(review_params)
     if @review.save
-      redirect_to product_review_path(@review.product_id, @review)
+      redirect_to product_path(@review.product_id)
       flash[:notice] = 'review added...'
     else
       flash[:notice] = 'There is some problem..'
     end
-
-  end
-
-  def show
   end
 
   def edit
@@ -35,19 +31,12 @@ before_action :require_user_edit, only: [:edit, :update]
     end
   end
 
-  def list
-    # this is better.
-    @reviews = current_user.reviews
-    # @reviews = Review.all_reviews(current_user.id)
-  end
-
   def destroy
-    puts request.format
-
-    @review.destroy
-
-    # what if review doesnt get destroyed for some reason?? we are not handling the errors here
-    redirect_to products_url, notice: 'Reviews was successfully destroyed.'
+    if @review.destroy
+      redirect_to products_url, notice: 'Reviews was successfully destroyed.'
+    else
+      redirect_to products_url, alert: 'Your Review not deleted yet, please try again..'
+    end
   end
 
   private
@@ -57,20 +46,10 @@ before_action :require_user_edit, only: [:edit, :update]
   end
 
   def set_review
-    @review = Review.find(params[:id])
-  end
-
-  def require_user_edit # same as in products controller
-    if @review.user_id != current_user.id
-      flash[:alert] = "You can't edit or update others review.."
-      redirect_to products_path
-    end
-  end
-
-  def require_login # same as in products controller
-    if !current_user.present?
-      flash[:notice] = "You can't edit someones review required login"
-      redirect_to products_path
+    @review = Review.find_by(id: params[:id])
+    authorize @review
+    if @review.nil?
+      redirect_to products_path, notice: 'Review not found'
     end
   end
 end

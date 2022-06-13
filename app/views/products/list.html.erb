@@ -1,17 +1,22 @@
 <div class="container">
 <h1>Your Products_</h1>
-<p>Total Created Items: <%= @your_products.length %></p>
+<p>Total Created Items: <%= @my_products.length %></p>
 </div>
 
 <div class= "row g-4 py-5 row-cols-1 row-cols-lg-3">
-<% @your_products.each do |p| %>
-<span class="border">
-  <div class="feature col">
-   <h2><%= p.name %></h2>
-   <p><%= p.description %></p>
-   <p>Rs. <%= p.price %></p>
-   <%= link_to 'Edit', edit_product_path(p), class:"btn btn-danger" %>
-  </div>
-</span>
+<% @my_products.each do |p| %>
+  <span class="border">
+    <div class="feature col">
+      <h2><%= p.name %></h2>
+      <p><%= p.description %></p>
+      <p>Rs. <%= p.price %></p>
+      <%= link_to 'Edit', edit_product_path(p), class:"btn btn-danger" %>
+    </div>
+  </span>
 <% end %>
+</div>
+<div class= "container">
+  <div class="container">
+    <%= will_paginate @my_products %>
+  </div>
 </div>
