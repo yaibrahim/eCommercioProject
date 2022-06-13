@@ -16,9 +16,9 @@ class Product < ApplicationRecord
   validates :user_id, presence: { message: 'user must be present' }
   validates :price, numericality: { only_integer: true, message: 'must be integer value (without decimal) not this `%<value>s`' }
 
-  before_create :add_serial_number
+  before_create :set_serial_number
 
-  def add_serial_number
+  def set_serial_number
     self.serial_number = serial_number_generator.upcase
   end
 
