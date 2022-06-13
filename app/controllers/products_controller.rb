@@ -43,7 +43,12 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @search_result = Product.with_name_like(params[:search])
+    unless params[:search].present?
+      flash[:alert] = 'Search field must be filled'
+      redirect_back(fallback_location: root_path)
+    else
+      @search_result = Product.with_name_like(params[:search])
+    end
   end
 
   private
