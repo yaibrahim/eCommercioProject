@@ -1,5 +1,7 @@
 # remove this if unncessary
 class OrderDetailsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     order = Order.find_by(id: params[:id])
     if order.nil?
