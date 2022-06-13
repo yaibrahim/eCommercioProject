@@ -1,7 +1,12 @@
 class CartController < ApplicationController
-  before_action :authenticate_user!, only: [:destroy]
+  before_action :authenticate_user!
   def index
     @cart = CartItem.user_cart(current_user.cart.id)
+
+    if @cart.nil?
+      flash[:alert] = 'You are not authorized to perform this action.'
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def destroy
