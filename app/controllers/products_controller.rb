@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :edit]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:search]
 
   def index
     @products = Product.paginate(page: params[:page], per_page: 15)
