@@ -11,10 +11,6 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
-  def user_name
-    user.full_name # no need for this. we can simply replace full_name field of database into user_name but I don't think this is necessary
-  end
-
   def assign_cart
     Cart.create(user_id: id)
   end
