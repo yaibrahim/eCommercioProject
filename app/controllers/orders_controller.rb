@@ -5,16 +5,6 @@ class OrdersController < ApplicationController
 
   end
 
-  def detail
-    order = Order.find_by(id: params[:id])
-    authorize order
-    if order.nil?
-      redirect_to orders_path, notice: 'Order id not exist'
-    else
-      @order_detail = order.order_items
-    end
-  end
-
   def new
     @order = Order.new
     @cart_item = current_user.cart.cart_items

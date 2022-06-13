@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
   root to: 'products#index'
 
-  resources :orders do
-    get :detail, on: :collection
-  end
+  resources :orders
 
+  resources :order_details, only: [:index]
   resources :reviews, only: [:index]
   resources :order_items
   resources :cart, only: [:index]

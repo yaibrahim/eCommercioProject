@@ -4,10 +4,6 @@ class OrderPolicy < ApplicationPolicy
     true
   end
 
-  def detail?
-    authorize_user_id?
-  end
-
   private
 
   def authorize_user_id?
