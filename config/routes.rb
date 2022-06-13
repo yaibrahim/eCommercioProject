@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :orders
 
   resources :order_details, only: [:index]
-  resources :reviews, only: [:index]
+  resources :reviews
   resources :order_items
   resources :cart, only: [:index]
 

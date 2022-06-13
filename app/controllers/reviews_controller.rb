@@ -32,8 +32,12 @@ before_action :authenticate_user!
   end
 
   def destroy
-    @review.destroy!
-    redirect_to products_url, notice: 'Reviews was successfully destroyed.'
+    if params[:product_id].present? && params[:id].present?
+      @review.destroy
+      redirect_to products_url, notice: 'Reviews was successfully destroyed.'
+    else
+      redirect_to products_url, alert: @review.errors.full_messages.to_sentence
+    end
   end
 
   private
