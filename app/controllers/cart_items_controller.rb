@@ -1,5 +1,6 @@
 class CartItemsController < ApplicationController
   before_action :set_cart_item, only: [:edit, :destroy, :update]
+  before_action :authenticate_user!, only: [:create]
 
   def new
     @cart_item = CartItem.new
@@ -7,6 +8,7 @@ class CartItemsController < ApplicationController
 
   def create
     @cart_item = CartItem.new(cart_item_params)
+    @cart_item.cart_id = current_user.cart.id
     authorize @cart_item
     if CartItem.product_exists?(@cart_item.cart_id, @cart_item.product_id)
       product = CartItem.find_product(@cart_item.cart_id, @cart_item.product_id)
