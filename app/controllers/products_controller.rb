@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:search]
 
   def index
-    @products = Product.paginate(page: params[:page], per_page: 15)
+    @products = Product.order(:id).paginate(page: params[:page], per_page: 15)
   end
 
   def new
@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = current_user.products.new(product_params)
-    @product.images.attach(params[:product][:pimage])
+    @product.pimage.attach(params[:product][:pimage])
 
     if @product.save
       redirect_to product_path(@product), notice: 'Product added...'
