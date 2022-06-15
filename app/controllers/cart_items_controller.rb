@@ -1,12 +1,18 @@
 class CartItemsController < ApplicationController
   before_action :set_cart_item, only: [:edit, :destroy, :update]
-  before_action :authenticate_user!, only: [:create]
+  #before_action :authenticate_user!, only: [:create]
 
   def new
     @cart_item = CartItem.new
   end
 
   def create
+    if current_user.nil?
+      session[:cart] ||= []
+      session[:cart] << { 'quantity': cart_item_params[:quantity], 'product_id': cart_item_params[:product_id] }
+      redirect_to products_path, alert: session[:cart]
+      return
+    end
     @cart_item = CartItem.new(cart_item_params)
     @cart_item.cart_id = current_user.cart.id
     authorize @cart_item

@@ -1,7 +1,11 @@
 class CartController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   def index
-    @cart = CartItem.user_cart(current_user.cart.id)
+    if current_user.present?
+      @cart = CartItem.user_cart(current_user.cart.id)
+    else
+      @cart = session[:cart]
+    end
   end
 
   def destroy

@@ -22,6 +22,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    session[:word] = 'record'
     @product = Product.find(params[:id])
     authorize @product
   end

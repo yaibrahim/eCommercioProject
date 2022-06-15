@@ -9,6 +9,9 @@
         <li class="nav-item">
           <%= link_to "Home", products_path, class:"nav-link active" %>
         </li>
+        <li class="nav-item">
+            <%= link_to "Cart", cart_index_url, class:"nav-link bi bi-cart" %>
+           </li>
         <% if user_signed_in?%>
            <li class="nav-item">
             <%= link_to 'Add Product', new_product_path, class:"nav-link" %>
@@ -18,9 +21,6 @@
            </li>
            <li class="nav-item">
             <%= link_to "My Reviews", reviews_path, class:"nav-link" %>
-           </li>
-           <li class="nav-item">
-            <%= link_to "Cart", cart_index_url, class:"nav-link bi bi-cart" %>
            </li>
            <li class="nav-item">
             <%= link_to "Orders", orders_url , class:"nav-link" %>

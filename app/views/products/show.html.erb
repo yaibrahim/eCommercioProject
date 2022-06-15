@@ -15,6 +15,8 @@
           <p><%= @product.description %></p>
           <p>Rs. <%= @product.price %></p>
           <%= link_to "Add #{@product.name} to cart", new_cart_item_path(p_id: @product.id, q: 1), class:"btn btn-light border"%>
+          <% if current_user.nil? %>
+          <% end %>
         </div>
      </span>
   </div>
