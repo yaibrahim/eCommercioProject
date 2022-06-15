@@ -13,7 +13,9 @@
 
   <div class="form-group mx-auto" align="left">
     <% if product.pimage.attached? %>
-        <%= image_tag product.pimage, style: "height: 250px ;width: 250px; display: block"%>
+        <% product.pimage.each do |image| %>
+            <%= image_tag image, style: "height: 210px ;width: 300px; display: block" %>
+        <% end %>
     <% end %>
   </div>
 
