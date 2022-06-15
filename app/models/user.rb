@@ -7,9 +7,7 @@ class User < ApplicationRecord
 
   attr_accessor :first_name, :last_name
 
-  validates :full_name, presence: { message: 'can\'t be blank' }
-
-  before_validation :set_full_name
+  #before_validation :set_full_name
 
   has_one_attached :avatar
 
@@ -21,7 +19,5 @@ class User < ApplicationRecord
     Cart.create(user_id: id)
   end
 
-  def set_full_name
-    self.full_name = [first_name, last_name].join(' ')
-  end
+
 end
