@@ -7,6 +7,7 @@ class CartItemsController < ApplicationController
 
   def create
     @cart_item = CartItem.new(cart_item_params)
+    authorize @cart_item
     if CartItem.product_exists?(@cart_item.cart_id, @cart_item.product_id)
       product = CartItem.find_product(@cart_item.cart_id, @cart_item.product_id)
       new_quantity = product.quantity + @cart_item.quantity
