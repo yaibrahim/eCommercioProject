@@ -7,7 +7,7 @@
           <h2><%= @product.name %></h2>
           <div class="form-group">
                <% if @product.pimage.attached? %>
-                  <%= image_tag @product.pimage, style: "height: 210px ;width: 300px; display: block" %>
+                  <%= image_tag @product.pimage[0], style: "height: 210px ;width: 300px; display: block" %>
                <% else%>
                   <h1>no image</h1>
                <% end %>
