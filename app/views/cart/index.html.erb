@@ -11,13 +11,17 @@
       </span>
     <% end %>
   <% else %>
-    <% for i in 0..@cart.length - 1 do %>
-      <span class="border">
-        <div class="feature col">
-          <p>Name: <strong><%= Product.find(@cart[i]['product_id']).name %></strong></p>
-          <p>Quantity: <strong><%= @cart[i]['quantity'] %></strong></p>
-        </div>
-      </span>
+    <% if @cart.present? %>
+      <% @cart.each_with_index do |cart_item, i|%>
+        <span class="border">
+          <div class="feature col">
+            <p>Name: <strong><%= Product.find(@cart[i]['product_id']).name %></strong></p>
+            <p>Quantity: <strong><%= @cart[i]['quantity'] %></strong></p>
+          </div>
+        </span>
+      <% end %>
+    <% else %>
+      <div class="container"><%= "Cart is Empty !!" %></div>
     <% end %>
   <% end %>
   <% if user_signed_in? %>
