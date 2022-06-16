@@ -1,6 +1,6 @@
 <div class="container">
 <h2>Edit <%= resource_name.to_s.humanize %>_</h2><br>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= form_with(model: resource, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="form-group">
@@ -10,8 +10,13 @@
   </div>
 
   <div class="field">
-    <%= f.label :full_name%><br />
-    <%= f.text_field :full_name, autofocus: true %>
+    <%= f.label :first_name%><br />
+    <%= f.text_field :first_name, autofocus: true, value: resource.full_name.split.first %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name%><br />
+    <%= f.text_field :last_name, autofocus: true, value: resource.full_name.split.second %>
   </div>
 
   <div class="field">
