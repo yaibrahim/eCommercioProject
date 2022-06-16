@@ -4,7 +4,7 @@ class Product < ApplicationRecord
   has_many :order_items
   has_many :reviews
 
-  has_one_attached :pimage
+  has_many_attached :pimage
 
   delegate :full_name, to: :user
 
