@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :edit]
-  before_action :authenticate_user!, except: [:search]
+  before_action :authenticate_user!, except: [:search, :show, :index]
 
   def index
     @products = Product.order(:id).paginate(page: params[:page], per_page: 15)
@@ -22,6 +22,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    session[:word] = 'record'
     @product = Product.find(params[:id])
     authorize @product
   end

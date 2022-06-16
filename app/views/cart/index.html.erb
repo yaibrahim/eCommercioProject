@@ -1,15 +1,33 @@
 <div class="container">
   <h2>Cart_</h2>
-
-  <% @cart.each do |cart_item|%>
-    <span class="border">
-      <div class="feature col">
-        <p>Name: <strong><%= cart_item.product.name %></strong></p>
-        <p>Quantity: <strong><%= cart_item.quantity %></strong></p>
-        <%= link_to 'Destroy', cart_item , method: :delete, data: { confirm: "Are you sure?"}%>
-      </div>
-    </span>
+  <% if current_user.present? %>
+    <% @cart.each do |cart_item|%>
+      <span class="border">
+        <div class="feature col">
+          <p>Name: <strong><%= cart_item.product.name %></strong></p>
+          <p>Quantity: <strong><%= cart_item.quantity %></strong></p>
+          <%= link_to 'Destroy', cart_item , method: :delete, data: { confirm: "Are you sure?"}%>
+        </div>
+      </span>
+    <% end %>
+  <% else %>
+    <% if @cart.present? %>
+      <% @cart.each_with_index do |cart_item, i|%>
+        <span class="border">
+          <div class="feature col">
+            <p>Name: <strong><%= Product.find(@cart[i]['product_id']).name %></strong></p>
+            <p>Quantity: <strong><%= @cart[i]['quantity'] %></strong></p>
+          </div>
+        </span>
+      <% end %>
+    <% else %>
+      <div class="container"><%= "Cart is Empty !!" %></div>
+    <% end %>
   <% end %>
-  <div class="container"><%= (link_to "Finalize Order", new_order_path, class:"btn btn-danger") if @cart.exists? %></div>
-  <div class="container"><%= "Cart is Empty !!" unless @cart.exists? %></div>
+  <% if user_signed_in? %>
+    <div class="container"><%= (link_to "Finalize Order", new_order_path, class:"btn btn-danger") if @cart.exists? %></div>
+    <div class="container"><%= "Cart is Empty !!" unless @cart.exists? %></div>
+  <% else %>
+     <div class="container"><%= (link_to "Finalize Order", new_order_path, class:"btn btn-danger") if @cart.present? %></div>
+  <% end %>
 </div>
