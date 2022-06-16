@@ -25,7 +25,6 @@
            <li class="nav-item">
             <%= link_to "Orders", orders_url , class:"nav-link" %>
            </li>
-
         <% else%>
         <% end%>
       </ul>
@@ -36,7 +35,7 @@
        <%= button_tag "Search", class: "btn btn-outline-success", name: nil%>
        </div>
       </div>
-      <% end %>%>
+      <% end %>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <% if user_signed_in?%>
            <li class="nav-item">
