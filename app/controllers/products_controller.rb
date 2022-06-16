@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = current_user.products.new(product_params)
-    @product.pimage.attach(params[:product][:pimage])
+    @product.pimage.attach(params[:pimage])
 
     if @product.save
       redirect_to product_path(@product), notice: 'Product added...'
@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
-      @product.pimage.attach(params[:product][:pimage])
+      @product.pimage.attach(params[:pimage])
       redirect_to @product
     else
       render :edit

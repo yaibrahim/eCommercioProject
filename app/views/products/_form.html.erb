@@ -36,7 +36,7 @@
 
   <div class="form-group mx-auto" align="center">
     <div class= "dropzone dropzone-default dz-clickable border rounded" data-controller="dropzone" data-dropzone-max-file-size="8" data-dropzone-max-files="2">
-        <%= f.file_field :pimage, direct_upload: true, data: { target: "dropzone.input"} %>
+        <%= f.file_field :pimage, multiple: true, name: 'pimage[]', direct_upload: true, data: { target: "dropzone.input"} %>
         <div class="dropzone-msg text-sm dz-message needsclick text-gray-600">
           <h6 class="dropzone-msg-title text-sm text-muted">Drag here to upload or click here to browse</h6>
           <span class="dropzone-msg-desc text-sm text-muted">8 MB file size maximum. Allowed file types png, jpg.</span>
