@@ -10,6 +10,7 @@ before_action :authenticate_user!
     @review = current_user.reviews.new(review_params)
     @review.product_id = params[:product_id]
     @review.save
+    redirect_back(fallback_location: root_path, notice: 'Review Added..')
   end
 
   def edit
@@ -24,10 +25,12 @@ before_action :authenticate_user!
   end
 
   def destroy
-    product = @review.product_id
+    @product = Product.find(params[:product_id])
+    @review = @product.reviews.find(params[:id])
+    @review_id = @review.id
     if @review.destroy
       respond_to do |format|
-        format.html { redirect_to product_path(product) }
+        format.html { redirect_to product_path(@product) }
         format.json { head :no_content }
         format.js
       end
