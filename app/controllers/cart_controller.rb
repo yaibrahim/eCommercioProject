@@ -11,6 +11,7 @@ class CartController < ApplicationController
         session[:cart] = []
       else
         @cart = user_cart_items
+        @cart_item = user_cart_items
       end
     else
       @cart = session[:cart]

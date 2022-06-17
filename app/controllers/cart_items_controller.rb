@@ -31,6 +31,11 @@ class CartItemsController < ApplicationController
   end
 
   def update
+    if @cart_item.update(cart_item_params)
+      redirect_back(fallback_location: root_path, notice: 'Cart item successfully updated.')
+    else
+      render :list, status: 422
+    end
   end
 
   def destroy

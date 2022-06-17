@@ -21,13 +21,13 @@
 
   <div class="field">
     <%= f.label :quantity %><br />
-    <%= f.number_field :quantity, autofocus: true, value: params[:q]  %>
+    <%= f.number_field :quantity, autofocus: true, value: 1, min: 1  %>
   </div>
 
   <div class="field">
     <%= f.hidden_field :cart_id, autofocus: true, value: params[:c_id], readonly: true, style: "#{'display:none'}" %>
   </div><br>
 
-  <%= f.submit %>
+  <%= f.submit 'Add to Cart' %>
 <% end %>
 </div>
