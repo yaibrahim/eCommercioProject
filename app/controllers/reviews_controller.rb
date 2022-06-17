@@ -6,18 +6,11 @@ before_action :authenticate_user!
     @reviews = current_user.reviews.paginate(page: params[:page], per_page: 10)
   end
 
-  def new
-    @review = Review.new
-  end
-
   def create
     @review = current_user.reviews.new(review_params)
-    if @review.save
-      redirect_to product_path(@review.product_id)
-      flash[:notice] = 'review added...'
-    else
-      flash[:notice] = 'There is some problem..'
-    end
+    @review.product_id = params[:product_id]
+    @review.save
+    redirect_back(fallback_location: root_path, notice: 'review added...')
   end
 
   def edit
@@ -32,8 +25,13 @@ before_action :authenticate_user!
   end
 
   def destroy
+    product = @review.product_id
     if @review.destroy
-      redirect_to products_url, notice: 'Reviews was successfully destroyed.'
+      respond_to do |format|
+        format.html { redirect_to product_path(product) }
+        format.json { head :no_content }
+        format.js   { render layout: false }
+      end
     else
       redirect_to products_url, alert: 'Your Review not deleted yet, please try again..'
     end
