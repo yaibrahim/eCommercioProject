@@ -23,15 +23,17 @@
      </span>
   </div>
 
-  <%= current_user.present? ? (@product.user_id == current_user.id ? "You Can't share review on your own product" : (link_to 'Type Your Review', new_product_review_path(@product.id), class:"btn btn-danger")) : "" %>
-  <%= form_with model: [@product, @review] do |f| %>
-  <div class="field">
-    <%= f.label :review_message %><br />
-    <%= f.text_area :review_message, size: "50x2", autofocus: true  %>
-  </div>
-
-  <%= f.submit %>
-<% end %>
+  <% if current_user.present? && (@product.user_id != current_user.id) %>
+    <%= form_with model: [@product, @review] do |f| %>
+    <div class="field">
+      <%= f.label :review_message %><br />
+      <%= f.text_area :review_message, size: "50x2", autofocus: true  %>
+    </div>
+    <%= f.submit 'Give your review', class:"btn btn-primary" %>
+    <% end %>
+  <% else %>
+    <%= "You Can't share review on your own product" %>
+  <% end %>
   <br><br>
   <h3>Reviews</h3>
   <p> <%= 'No Reviews' unless @product.reviews.exists? %></p>
@@ -41,8 +43,15 @@
         <h4>Review Message: "<i><%= review.review_message %></i>"</h4>
         <p>Review by: <%= review.full_name %></p>
 
-        <%= current_user.present? ? (review.owner?(current_user.id) ? (link_to "Edit",edit_product_review_path(@product.id,review.id), class:"btn btn-danger") : "") : "" %>
-        <%= current_user.present? ? (review.owner?(current_user.id)  ? (link_to 'Delete',product_review_path(@product.id,review.id), method: :delete, data: { confirm: "Are you sure?"}, class:"btn btn-danger delete_review", remote: true) : ""): "" %>
+        <% if current_user.present? && review.owner?(current_user.id) %>
+          <%= form_with model: [@product, review] do |f| %>
+            <div class="field">
+              <%= f.text_area :review_message, size: "45x2", autofocus: true  %>
+            </div>
+            <%= f.submit 'Update', class:"btn btn-primary" %>
+            <%= current_user.present? ? (review.owner?(current_user.id)  ? (link_to 'Delete',product_review_path(@product.id,review.id), method: :delete, data: { confirm: "Are you sure?"}, class:"btn btn-danger delete_review") : ""): "" %>
+          <% end %>
+        <% end %>
       </div>
     </span>
   <% end %>

@@ -18,7 +18,7 @@ before_action :authenticate_user!
 
   def update
     if @review.update(review_params)
-      redirect_to list_reviews_path, notice: 'Review was successfully updated.'
+      redirect_back(fallback_location: root_path, notice: 'Review was successfully updated.')
     else
       render :list, status: 422
     end
