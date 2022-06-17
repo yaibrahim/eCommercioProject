@@ -10,7 +10,6 @@ before_action :authenticate_user!
     @review = current_user.reviews.new(review_params)
     @review.product_id = params[:product_id]
     @review.save
-    redirect_back(fallback_location: root_path, notice: 'review added...')
   end
 
   def edit
@@ -30,7 +29,7 @@ before_action :authenticate_user!
       respond_to do |format|
         format.html { redirect_to product_path(product) }
         format.json { head :no_content }
-        format.js   { render layout: false }
+        format.js
       end
     else
       redirect_to products_url, alert: 'Your Review not deleted yet, please try again..'
