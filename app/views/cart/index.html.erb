@@ -8,7 +8,7 @@
           <%= form_with model: (cart_item) do |f| %>
             <div class="field">
               <%= f.label :quantity %><br />
-              <%= f.number_field :quantity, autofocus: true, min: 1  %>
+              <%= f.number_field :quantity, autofocus: true, min: 0  %>
               <%= f.submit 'Update Quantity' %>
             </div>
          <% end %>
