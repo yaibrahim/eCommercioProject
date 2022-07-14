@@ -16,27 +16,31 @@
             </div>
           <p><%= @product.description %></p>
           <p>Rs. <%= @product.price %></p>
-          <%= link_to "Add #{@product.name} to cart", new_cart_item_path(p_id: @product.id, q: 1), class:"btn btn-light border"%>
+          <%= link_to "Add #{@product.name} to cart", new_cart_item_path(p_id: @product.id), class:"btn btn-light border"%>
           <% if current_user.nil? %>
           <% end %>
         </div>
      </span>
   </div>
 
-  <%= current_user.present? ? (@product.user_id == current_user.id ? "You Can't share review on your own product" : (link_to 'Type Your Review', new_product_review_path(@product.id), class:"btn btn-danger")) : "" %>
+  <% if current_user.present? && (@product.user_id != current_user.id) %>
+    <%= form_with model: [@product, @review] do |f| %>
+    <div class="field">
+      <%= f.label :review_message %><br />
+      <%= f.text_area :review_message, size: "50x2", autofocus: true  %>
+    </div>
+    <%= f.submit 'Give your review', class:"btn btn-primary" %>
+    <% end %>
+  <% else %>
+    <%= "You Can't share review on your own product" %>
+  <% end %>
   <br><br>
   <h3>Reviews</h3>
   <p> <%= 'No Reviews' unless @product.reviews.exists? %></p>
-  <% my_reviews.each do |review| %>
-    <span class="border">
-      <div class="feature col">
-        <h4>Review Message: "<i><%= review.review_message %></i>"</h4>
-        <p>Review by: <%= review.full_name %></p>
-
-        <%= current_user.present? ? (review.owner?(current_user.id) ? (link_to "Edit",edit_product_review_path(@product.id,review.id), class:"btn btn-danger") : "") : "" %>
-        <%= current_user.present? ? (review.owner?(current_user.id)  ? (link_to 'Delete',product_review_path(@product.id,review.id), method: :delete, data: { confirm: "Are you sure?"}, class:"btn btn-danger", remote: true) : ""): "" %>
-      </div>
-    </span>
-  <% end %>
+  <div id= "review-pane">
+    <% my_reviews.each do |review| %>
+      <%= render 'reviews/review', review: review%>
+    <% end %>
+  </div>
 
 </div>

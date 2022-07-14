@@ -9,6 +9,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise', '~> 4.8.1'
 gem 'ffaker'
 gem 'jbuilder', '~> 2.7'
+gem 'jquery-rails'
 gem 'pg', '~> 1.3.4'
 gem 'puma', '~> 5.0'
 gem 'pundit'

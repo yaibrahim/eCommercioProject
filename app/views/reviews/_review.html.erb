@@ -1,0 +1,16 @@
+<span class="border">
+  <div class="feature col">
+    <h4>Review Message: "<i><%= review.review_message %></i>"</h4>
+    <p>Review by: <%= review.full_name %></p>
+
+    <% if current_user.present? && review.owner?(current_user.id) %>
+      <%= form_with model: [@product, review] do |f| %>
+        <div class="field">
+          <%= f.text_area :review_message, size: "45x2", autofocus: true  %>
+        </div>
+        <%= f.submit 'Update', class:"btn btn-primary" %>
+        <%= current_user.present? ? (review.owner?(current_user.id)  ? (link_to 'Delete',product_review_path(@product.id,review.id), method: :delete, data: { confirm: "Are you sure?"}, class:"btn btn-danger") : ""): "" %>
+      <% end %>
+    <% end %>
+  </div>
+</span>

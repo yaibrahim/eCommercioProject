@@ -22,7 +22,7 @@
             <p><%= product.description %></p>
             <p>Rs. <%= product.price %></p>
             <%= link_to 'Show', product, class:"btn btn-danger" %>
-            <%= (link_to 'Add to Cart', new_cart_item_path(p_id: product.id, q: 1), class:"btn btn-light border")%>
+            <%= (link_to 'Add to Cart', new_cart_item_path(p_id: product.id), class:"btn btn-light border")%>
          </div>
       </span>
    <% end %>
